@@ -1,0 +1,10 @@
+1. finish making all components as if we have a backend and API calculates
+2. make API call to coin API
+3. link firebase backend database
+4. add firebase auth
+
+
+
+- make coin detail with accordion down to display purchases
+- make coin detail interactive to pass more info back to firebase
+- make logic that calculates firebase info and passes it up

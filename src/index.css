@@ -1,0 +1,60 @@
+/* #b9fff2
+#6cdeff
+#00a3d3
+#00778d
+#006351
+#f9f9f9
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #b9fff2;
+}
+
+.header{
+  color: #00778d;
+  font-size: 40px;
+  text-align: center;
+  margin: 40px auto;
+  font-style: italic;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px #6cdeff;
+  box-shadow: -5px 5px #00778d, -10px 10px #00a3d3, -15px 15px #6cdeff;
+  letter-spacing: 2px;
+  text-align: left;
+
+}
+
+.coinItems{
+  /* box-shadow: 5px 5px 20px #00778d; */
+  box-shadow: -5px 5px #00778d, -10px 10px #00a3d3, -15px 15px #6cdeff;
+  border-radius: 5px;
+  background-color: #006351;
+  color: #b9fff2;
+  font-size: 15px;
+  margin: 10px auto;
+  padding: 15px;
+}
+
+.summaryHeader{
+  color: #f9f9f9;
+  font-size: 20px;
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.summaryHeaderRate{
+  text-align: right;
+}
+.subHeader{
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  color: #6cdeff;
+}
+
+.summaryResult{
+  text-align: center;
+}
