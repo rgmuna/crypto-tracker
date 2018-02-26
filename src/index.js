@@ -58,13 +58,40 @@ const currRate = {
 const coinTypes = ['btc', 'eth', 'ltc'];
 
 class App extends React.Component{
+  constructor(props){
+    super(props)
+    this.state= {
+      coinCurr : {
+        btc: null,
+        eth: null,
+        ltc: null
+      },
+      test: 'test'
+    }
+  }
 
+  componentDidMount(){
+    fetch('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
+    .then((result) => {
+      return result.json();
+    })
+    .then((data) => {
+      // console.log(data);
+      let updatedRate = {
+        btc: data.BTC.USD,
+        eth: data.ETH.USD,
+        ltc: data.LTC.USD
+      };
+      this.setState({coinCurr: updatedRate});
+      console.log(this.state);
+    })
+  }
   render(){
     const coinItems = coinTypes.map((type) => {
       return (
         <Row key={type}>
 
-            <CoinSummary coinType={type} currRate={currRate[type]} coinResult={exampleFirebaseResult[type]} />
+            <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={exampleFirebaseResult[type]} />
 
         </Row>
       )
@@ -74,7 +101,7 @@ class App extends React.Component{
       <Grid>
         <Row className="header">
           <Col xs={12}>
-            <i className="fas fa-chart-line"></i> Crypto Tracker
+            <i className="fas fa-chart-line"></i> CRYPTO TRACKER
           </Col>
         </Row>
         <Row>

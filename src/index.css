@@ -24,7 +24,8 @@ body {
   box-shadow: -5px 5px #00778d, -10px 10px #00a3d3, -15px 15px #6cdeff;
   letter-spacing: 2px;
   text-align: left;
-
+  background-color: #f9f9f9;
+  border-radius: 5px;
 }
 
 .coinItems{
@@ -43,6 +44,7 @@ body {
   font-size: 20px;
   margin-bottom: 25px;
   font-weight: bold;
+  border-bottom: 1px solid white;
 }
 
 .summaryHeaderRate{
