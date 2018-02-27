@@ -33,7 +33,6 @@ const CoinSummaryDetail = (props) => {
     return (diff/first) * 100;
   }
 
-
   return (
     <Col xs={12}>
       <Col xs={12}>

@@ -90,7 +90,7 @@ class App extends React.Component{
         ltc: data.LTC.USD
       };
       this.setState({coinCurr: updatedRate});
-      console.log(this.state);
+      // console.log(this.state);
     })
 
 
@@ -110,21 +110,25 @@ class App extends React.Component{
       // });
       var firebaseData = {...this.state.firebaseData}
       firebaseData.btc = result.btc;
+      firebaseData.eth = result.eth;
+      firebaseData.ltc = result.ltc;
       this.setState({firebaseData})
       // this.setState({firebaseData.btc : result.btc})
-      console.log(snapshot.val())
+      // console.log(snapshot.val())
     });
 
   }
   render(){
     const coinItems = coinTypes.map((type) => {
-      return (
-        <Row key={type}>
+      // console.log(this.state.firebaseData[type]);
+      if(this.state.firebaseData[type] !== undefined){
+        return (
+          <Row key={type}>
+            <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={this.state.firebaseData[type]} />
+          </Row>
+        )
+      }
 
-            <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={exampleFirebaseResult[type]} />
-
-        </Row>
-      )
     });
 
     return (

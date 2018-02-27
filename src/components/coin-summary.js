@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import CoinSummaryDetail from './coin-summary-detail';
+import CoinSummaryTransactions from './coin-summary-transactions';
 import FontAwesome from 'react-fontawesome';
 
 
@@ -19,16 +20,8 @@ const CoinSummary = (props) => {
           1 {coinType.toUpperCase()} = ${props.currRate}
         </Col>
       </Col>
-
-      {/*coin summary*/}
-
       <CoinSummaryDetail coinResult={props.coinResult} currRate={props.currRate} />
-
-
-      {/*coin transactions*/}
-      <Col xs={12}>
-      </Col>
-
+      <CoinSummaryTransactions coinResult={props.coinResult} />
     </Col>
   )
 }
