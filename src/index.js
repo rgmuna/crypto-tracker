@@ -4,6 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import './index.css';
 import CoinSummary from './components/coin-summary.js';
 import FontAwesome from 'react-fontawesome';
+import firebase from './firebase.js'; // <--- add this line
 
 
 //API CALL STAND INS -------------------------------------------
@@ -62,12 +63,18 @@ class App extends React.Component{
     super(props)
     this.state= {
       coinCurr : {
-        btc: null,
-        eth: null,
-        ltc: null
+        btc: '',
+        eth: '',
+        ltc: ''
       },
-      test: 'test'
+      firebaseData: {
+        btc: '',
+        eth: '',
+        ltc: ''
+      }
     }
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
@@ -85,6 +92,29 @@ class App extends React.Component{
       this.setState({coinCurr: updatedRate});
       console.log(this.state);
     })
+
+
+    const itemsRef = firebase.database().ref('roqueData');
+    itemsRef.on('value', (snapshot) => {
+      let result = snapshot.val();
+      // let newState = [];
+      // for (let item in items) {
+      //   newState.push({
+      //     id: item,
+      //     title: items[item].title,
+      //     user: items[item].user
+      //   });
+      // }
+      // this.setState({
+      //   items: newState
+      // });
+      var firebaseData = {...this.state.firebaseData}
+      firebaseData.btc = result.btc;
+      this.setState({firebaseData})
+      // this.setState({firebaseData.btc : result.btc})
+      console.log(snapshot.val())
+    });
+
   }
   render(){
     const coinItems = coinTypes.map((type) => {
