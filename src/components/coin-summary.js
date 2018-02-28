@@ -21,7 +21,7 @@ const CoinSummary = (props) => {
         </Col>
       </Col>
       <CoinSummaryDetail coinResult={props.coinResult} currRate={props.currRate} />
-      <CoinSummaryTransactions coinResult={props.coinResult} />
+      <CoinSummaryTransactions coinResult={props.coinResult} currRate={props.currRate}/>
     </Col>
   )
 }

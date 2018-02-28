@@ -35,32 +35,44 @@ const CoinSummaryDetail = (props) => {
 
   return (
     <Col xs={12}>
-      <Col xs={12}>
-        <Col xs={3}>
-          <div className="subHeader"> Worth </div>
-        </Col>
-        <Col xs={3}>
-          <div className="subHeader"> # Coins </div>
-        </Col>
-        <Col xs={3}>
-          <div className="subHeader"> Amount Spent </div>
-        </Col>
-        <Col xs={3}>
-          <div className="subHeader"> % Difference </div>
+      <Col xs={12} sm={3} className="infoContainer">
+        <Col xs={12} className="detailInfo">
+          <Col xs={12}>
+            <div className="subHeader"> Worth </div>
+          </Col>
+          <Col xs={12}>
+            <div className="summaryResult"> ${round((coinSumObj.numCoins * props.currRate), 2)} </div>
+          </Col>
         </Col>
       </Col>
-      <Col xs={12}>
-        <Col xs={3}>
-          <div className="summaryResult"> {round((coinSumObj.numCoins * props.currRate), 2)} </div>
+      <Col xs={12} sm={3} className="infoContainer">
+        <Col xs={12} className="detailInfo">
+          <Col xs={12}>
+            <div className="subHeader"> # Coins </div>
+          </Col>
+          <Col xs={12}>
+            <div className="summaryResult"> {round(coinSumObj.numCoins, 8)} </div>
+          </Col>
         </Col>
-        <Col xs={3}>
-          <div className="summaryResult"> {round(coinSumObj.numCoins, 8)} </div>
+      </Col>
+      <Col xs={12} sm={3}className="infoContainer">
+        <Col xs={12} className="detailInfo">
+          <Col xs={12}>
+            <div className="subHeader"> Spent </div>
+          </Col>
+          <Col xs={12}>
+            <div className="summaryResult"> ${coinSumObj.amountSpent} </div>
+          </Col>
         </Col>
-        <Col xs={3}>
-          <div className="summaryResult"> {coinSumObj.amountSpent} </div>
-        </Col>
-        <Col xs={3}>
+      </Col>
+      <Col xs={12} sm={3} className="infoContainer">
+        <Col xs={12} className="detailInfo">
+          <Col xs={12}>
+            <div className="subHeader"> % Diff </div>
+          </Col>
+          <Col xs={12}>
           <div className="summaryResult"> {round(percentDiffCalc(coinSumObj.totalWorth, coinSumObj.amountSpent), 1)}% </div>
+          </Col>
         </Col>
       </Col>
     </Col>
