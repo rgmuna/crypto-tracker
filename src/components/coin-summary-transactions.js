@@ -58,11 +58,6 @@ class CoinSummaryTransactions extends React.Component {
 
     }
 
-
-
-
-    console.log(this.props.coinResult);
-
     return (
       <Col xs={12} className="text-center" style={{marginTop: '10px'}}>
         <Button bsClass="transactionBtn" onClick={this.handleClick} >

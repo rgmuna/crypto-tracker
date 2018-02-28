@@ -29,6 +29,8 @@ class App extends React.Component{
       },
       user: null
     }
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this);
     // this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -66,30 +68,28 @@ class App extends React.Component{
         ltc: data.LTC.USD
       };
       this.setState({coinCurr: updatedRate});
-      this.login = this.login.bind(this);
-      this.logout = this.logout.bind(this);
     })
 
 
-    const itemsRef = firebase.database().ref('roqueData');
-    itemsRef.on('value', (snapshot) => {
-      let result = snapshot.val();
+  
 
-      var firebaseData = {...this.state.firebaseData}
-      firebaseData.btc = result.btc;
-      firebaseData.eth = result.eth;
-      firebaseData.ltc = result.ltc;
-      this.setState({firebaseData})
-    });
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
+        const itemsRef = firebase.database().ref(this.state.user.uid);
+        itemsRef.on('value', (snapshot) => {
+          let result = snapshot.val();
+          var firebaseData = {...this.state.firebaseData}
+          firebaseData.btc = result.btc;
+          firebaseData.eth = result.eth;
+          firebaseData.ltc = result.ltc;
+          this.setState({firebaseData})
+        });
       }
     });
   }
   render(){
     const coinItems = coinTypes.map((type) => {
-      // console.log(this.state.firebaseData[type]);
       if(this.state.firebaseData[type] !== undefined){
         return (
           <Row key={type}>
@@ -100,6 +100,14 @@ class App extends React.Component{
 
     });
 
+    const userProfile = this.state.user ?
+      (<div className='user-profile'>
+        {this.state.user.uid}
+      </div>)
+      :
+      <div></div>;
+    ;
+
     return (
       <Grid>
         <Row className="header">
@@ -109,7 +117,8 @@ class App extends React.Component{
         </Row>
         <Row>
           <Col xs={12}>
-            Feb 20, 2018
+            {userProfile}
+
           </Col>
           <div className="wrapper">
             {this.state.user ?
@@ -119,7 +128,7 @@ class App extends React.Component{
             }
           </div>
         </Row>
-        {coinItems}
+        {this.state.user ? coinItems : <div>Login First!</div>}
       </Grid>
     )
   }
