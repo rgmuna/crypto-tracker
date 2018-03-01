@@ -64,7 +64,7 @@ const CoinSummaryDetail = (props) => {
             <div className="subHeader"> Spent </div>
           </Col>
           <Col xs={12}>
-            <div className="summaryResult"> ${coinSumObj.amountSpent} </div>
+            <div className="summaryResult"> ${round(coinSumObj.amountSpent, 2)} </div>
           </Col>
         </Col>
       </Col>

@@ -135,8 +135,7 @@ body {
 }
 
 .transDetailContainer{
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 0px;
   margin-top: 5px;
   margin-bottom: 5px;
   border: 1px solid #00778d;
@@ -151,6 +150,15 @@ body {
   width: 100%;
 }
 
+.transSubHeader{
+  padding: 0px;
+  color: white;
+}
+
+.subtitleContainer{
+  text-align: center;
+  padding: 5px 0px 0px 0px;
+}
 #submitBtn{
   background-color: #00778d;
   font-weight: 600;
@@ -162,6 +170,13 @@ body {
   border: 1px solid #6cdeff;
   background-color: #00a3d3;
   border-radius: 5px;
+}
+
+input{
+  text-align: center;
+}
+input:focus{
+  outline: none;
 }
 
 @media (max-width: 768px) {

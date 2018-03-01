@@ -67,26 +67,33 @@ class App extends React.Component{
       if (user) {
         this.setState({ user });
         const itemsRef = firebase.database().ref(this.state.user.uid);
-        itemsRef.on('value', (snapshot) => {
-          let result = snapshot.val();
-          let firebaseData = {...this.state.firebaseData}
-          firebaseData.btc = result.btc;
-          firebaseData.eth = result.eth;
-          firebaseData.ltc = result.ltc;
-          this.setState({firebaseData})
-        });
+          itemsRef.on('value', (snapshot) => {
+            let result = snapshot.val();
+            if(result){
+              let firebaseData = {...this.state.firebaseData}
+              firebaseData.btc = result.btc;
+              firebaseData.eth = result.eth;
+              firebaseData.ltc = result.ltc;
+              this.setState({firebaseData})
+            }
+            else{
+              let firebaseData = {...this.state.firebaseData}
+              firebaseData.btc = 0;
+              firebaseData.eth = 0;
+              firebaseData.ltc = 0;
+              this.setState({firebaseData})
+            }
+          });
       }
     });
   }
   render(){
     const coinItems = coinTypes.map((type) => {
-      if(this.state.firebaseData[type] !== undefined){
         return (
           <Row key={type}>
             <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={this.state.firebaseData[type]} userInfo={this.state.user} />
           </Row>
         )
-      }
     });
 
     const userProfile = this.state.user ?
@@ -107,7 +114,6 @@ class App extends React.Component{
         <Row>
           <Col xs={12}>
             {userProfile}
-
           </Col>
           <div className="wrapper">
             {this.state.user ?
