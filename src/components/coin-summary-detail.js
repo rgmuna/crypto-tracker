@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+import {Col} from 'react-bootstrap';
+// import FontAwesome from 'react-fontawesome';
 
 
 const CoinSummaryDetail = (props) => {
@@ -37,8 +37,8 @@ const CoinSummaryDetail = (props) => {
   }
 
   return (
-    <Col xs={12}>
-      <Col xs={12} sm={3} className="infoContainer">
+    <Col xs={12} style={{padding: '0px'}}>
+      <Col xs={6} sm={3} className="infoContainer">
         <Col xs={12} className="detailInfo">
           <Col xs={12}>
             <div className="subHeader"> Worth </div>
@@ -48,7 +48,7 @@ const CoinSummaryDetail = (props) => {
           </Col>
         </Col>
       </Col>
-      <Col xs={12} sm={3} className="infoContainer">
+      <Col xs={6} sm={3} className="infoContainer">
         <Col xs={12} className="detailInfo">
           <Col xs={12}>
             <div className="subHeader"> # Coins </div>
@@ -58,7 +58,7 @@ const CoinSummaryDetail = (props) => {
           </Col>
         </Col>
       </Col>
-      <Col xs={12} sm={3}className="infoContainer">
+      <Col xs={6} sm={3}className="infoContainer">
         <Col xs={12} className="detailInfo">
           <Col xs={12}>
             <div className="subHeader"> Spent </div>
@@ -68,7 +68,7 @@ const CoinSummaryDetail = (props) => {
           </Col>
         </Col>
       </Col>
-      <Col xs={12} sm={3} className="infoContainer">
+      <Col xs={6} sm={3} className="infoContainer">
         <Col xs={12} className="detailInfo">
           <Col xs={12}>
             <div className="subHeader"> % Diff </div>

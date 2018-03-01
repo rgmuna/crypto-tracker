@@ -13,11 +13,13 @@ class CoinSummaryTransactions extends React.Component {
         price: '',
         rate: '',
         date: ''
-      }
+      },
+      editing: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEditing = this.handleEditing.bind(this);
   }
 
   handleClick() {
@@ -37,22 +39,27 @@ class CoinSummaryTransactions extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-
+    //add to firebase
     const transactionRef = firebase.database().ref(this.props.userInfo.uid).child(this.props.coinType);
-
     const newItem = {
       date: this.state.addTransaction.date,
       purchase: this.state.addTransaction.price,
       rate: this.state.addTransaction.rate,
     }
-    console.log(newItem);
     transactionRef.push(newItem);
-
+    //update State
     const addTransaction = {...this.state.addTransaction}
     addTransaction.date = '';
     addTransaction.price = '';
     addTransaction.rate = '';
     this.setState({addTransaction});
+  }
+
+  handleEditing(e){
+    e.stopPropagation();
+    this.setState(prevState => ({
+      editing: !prevState.editing
+    }));
   }
 
   render(){
@@ -74,19 +81,35 @@ class CoinSummaryTransactions extends React.Component {
               ${firebaseData[action].purchase}
             </Col>
           </Col>
-          <Col xs={4} sm={3} className="noXSPadding">
-            <Col xs={12} className="transDetailContainer">
+
+          <Col xs={4} sm={3} className="noXSPadding" xsHidden>
+            <Col xs={12} className="transDetailContainer" >
               ${firebaseData[action].rate}
             </Col>
           </Col>
-          <Col xs={4} sm={3} xsHidden>
-            <Col xs={12} className="transDetailContainer">
-              {new Intl.DateTimeFormat('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: '2-digit'
-              }).format(firebaseData[action].date)}
-            </Col>
+
+          <Col xs={4} sm={3} className="noXSPadding" smHidden mdHidden lgHidden>
+            {this.state.editing ?
+              <button className="removeBtn">Remove</button>
+              :
+              <Col xs={12} className="transDetailContainer">
+                ${firebaseData[action].rate}
+              </Col>
+            }
+          </Col>
+
+          <Col xs={4} sm={3} className="text-center" xsHidden>
+            {this.state.editing ?
+              <button className="removeBtn">Remove</button>
+              :
+              <Col xs={12} className="transDetailContainer">
+                {new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'short',
+                  day: '2-digit'
+                }).format(firebaseData[action].date)}
+              </Col>
+          }
           </Col>
         </Col>
       );
@@ -94,7 +117,16 @@ class CoinSummaryTransactions extends React.Component {
     }
 
     return (
-      <Col xs={12} className="text-center" style={{marginTop: '10px'}}>
+      <Col xs={12} className="text-right" style={{marginTop: '10px', padding: '0px'}}>
+
+        {this.state.isToggleOn ?
+          <span>
+            <button onClick={this.handleEditing} className="editBtn">Edit</button>
+          </span>
+          :
+          null
+        }
+
         <Button bsClass="transactionBtn" onClick={this.handleClick} >
           {this.state.isToggleOn ?
             <i className="fas fa-chevron-circle-up"></i> :
@@ -133,12 +165,12 @@ class CoinSummaryTransactions extends React.Component {
                       <input className="coinInput" type="text" name="rate" placeholder="Rate" onChange={this.handleChange} value={this.state.addTransaction.rate} />
                     </Col>
                   </Col>
-                  <Col xs={4} sm={3} xsHidden>
+                  <Col xs={4} sm={3} className="noXSPadding">
                     <Col xs={12} className="transDetailContainer">
                       <input className="coinInput" type="text" name="date" placeholder="Date" onChange={this.handleChange} value={this.state.addTransaction.date} />
                     </Col>
                   </Col>
-                  <Col xs={4} sm={3} className="noXSPadding">
+                  <Col xs={12} sm={3} className="noXSPadding text-center">
                     <a onClick={this.handleSubmit} href="">
                       <Col xs={12} className="transDetailContainer" id="submitBtn">
                          Add
