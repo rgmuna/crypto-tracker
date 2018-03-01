@@ -20,6 +20,7 @@ class CoinSummaryTransactions extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEditing = this.handleEditing.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
   handleClick() {
@@ -62,6 +63,11 @@ class CoinSummaryTransactions extends React.Component {
     }));
   }
 
+  handleRemove(e){
+    const transactionRef = firebase.database().ref(this.props.userInfo.uid).child(this.props.coinType).child(e);
+    transactionRef.remove();
+  }
+
   render(){
     const firebaseData = this.props.coinResult;
     const transactionArray = [];
@@ -90,7 +96,7 @@ class CoinSummaryTransactions extends React.Component {
 
           <Col xs={4} sm={3} className="noXSPadding" smHidden mdHidden lgHidden>
             {this.state.editing ?
-              <button className="removeBtn">Remove</button>
+              <button className="removeBtn" onClick={()=>this.handleRemove(action)}>Remove</button>
               :
               <Col xs={12} className="transDetailContainer">
                 ${firebaseData[action].rate}
@@ -100,7 +106,7 @@ class CoinSummaryTransactions extends React.Component {
 
           <Col xs={4} sm={3} className="text-center" xsHidden>
             {this.state.editing ?
-              <button className="removeBtn">Remove</button>
+              <button className="removeBtn" onClick={()=>this.handleRemove(action)}>Remove</button>
               :
               <Col xs={12} className="transDetailContainer">
                 {new Intl.DateTimeFormat('en-US', {
@@ -186,8 +192,6 @@ class CoinSummaryTransactions extends React.Component {
       </Col>
     )
   }
-
-
 }
 
 export default CoinSummaryTransactions;
