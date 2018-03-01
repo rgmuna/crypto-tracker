@@ -18,11 +18,14 @@ const CoinSummaryDetail = (props) => {
 
   //get total number of coins and how much their worth and store in object
   for(var transaction in props.coinResult){
-    let trans = props.coinResult[transaction];
-    let value = trans.purchase/trans.rate;
+    let purchase = parseFloat(props.coinResult[transaction].purchase);
+    let date = parseFloat(props.coinResult[transaction].date);
+    let rate = parseFloat(props.coinResult[transaction].rate);
+
+    let value = purchase/rate;
     let roundedValue = round(value, 8);
 
-    coinSumObj.amountSpent += trans.purchase;
+    coinSumObj.amountSpent += purchase;
     coinSumObj.numCoins += roundedValue;
   }
 

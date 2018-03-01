@@ -125,6 +125,24 @@ body {
   font-size: 13px;
 }
 
+.coinInput{
+  border: none;
+  width: 100%;
+}
+
+#submitBtn{
+  background-color: #00778d;
+  font-weight: 600;
+  color: white;
+}
+
+.submitContainer{
+  margin-top: 5px;
+  border: 1px solid #6cdeff;
+  background-color: #00a3d3;
+  border-radius: 5px;
+}
+
 @media (max-width: 768px) {
   .noXSPadding{
     padding: 0px;

@@ -6,11 +6,6 @@ import CoinSummary from './components/coin-summary.js';
 import FontAwesome from 'react-fontawesome';
 import firebase, { auth, provider } from './firebase.js'; // <--- add this line
 
-
-
-
-
-
 const coinTypes = ['btc', 'eth', 'ltc'];
 
 class App extends React.Component{
@@ -31,8 +26,6 @@ class App extends React.Component{
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -70,16 +63,13 @@ class App extends React.Component{
       this.setState({coinCurr: updatedRate});
     })
 
-
-  
-
     auth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ user });
         const itemsRef = firebase.database().ref(this.state.user.uid);
         itemsRef.on('value', (snapshot) => {
           let result = snapshot.val();
-          var firebaseData = {...this.state.firebaseData}
+          let firebaseData = {...this.state.firebaseData}
           firebaseData.btc = result.btc;
           firebaseData.eth = result.eth;
           firebaseData.ltc = result.ltc;
@@ -93,17 +83,16 @@ class App extends React.Component{
       if(this.state.firebaseData[type] !== undefined){
         return (
           <Row key={type}>
-            <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={this.state.firebaseData[type]} />
+            <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={this.state.firebaseData[type]} userInfo={this.state.user} />
           </Row>
         )
       }
-
     });
 
     const userProfile = this.state.user ?
-      (<div className='user-profile'>
-        {this.state.user.uid}
-      </div>)
+      <div className='user-profile'>
+        {this.state.user.displayName}
+      </div>
       :
       <div></div>;
     ;
