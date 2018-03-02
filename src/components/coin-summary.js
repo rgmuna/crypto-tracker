@@ -20,9 +20,15 @@ const CoinSummary = (props) => {
           1 {coinType.toUpperCase()} = ${props.currRate}
         </Col>
       </Col>
-      <CoinSummaryDetail coinResult={props.coinResult} currRate={props.currRate} />
-      <CoinSummaryTransactions coinType={coinType} coinResult={props.coinResult} currRate={props.currRate} userInfo={props.userInfo}/>
-    </Col>
+      {props.userIn ?
+        <div>
+          <CoinSummaryDetail coinResult={props.coinResult} currRate={props.currRate} />
+          <CoinSummaryTransactions coinType={coinType} coinResult={props.coinResult} currRate={props.currRate} userInfo={props.userInfo}/>
+        </div>
+      :
+        null
+      }
+  </Col>
   )
 }
 

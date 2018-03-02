@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
 import './index.css';
 import CoinSummary from './components/coin-summary.js';
+import CoinTotal from './components/coin-total.js';
 import FontAwesome from 'react-fontawesome';
 import firebase, { auth, provider } from './firebase.js'; // <--- add this line
 
@@ -43,7 +44,7 @@ class App extends React.Component{
       .then((result) => {
         const user = result.user;
         this.setState({
-          user
+            user
         });
       });
     }
@@ -74,14 +75,14 @@ class App extends React.Component{
               firebaseData.btc = result.btc;
               firebaseData.eth = result.eth;
               firebaseData.ltc = result.ltc;
-              this.setState({firebaseData})
+              this.setState({firebaseData});
             }
             else{
               let firebaseData = {...this.state.firebaseData}
               firebaseData.btc = 0;
               firebaseData.eth = 0;
               firebaseData.ltc = 0;
-              this.setState({firebaseData})
+              this.setState({firebaseData});
             }
           });
       }
@@ -91,18 +92,17 @@ class App extends React.Component{
     const coinItems = coinTypes.map((type) => {
         return (
           <Row key={type}>
-            <CoinSummary coinType={type} currRate={this.state.coinCurr[type]} coinResult={this.state.firebaseData[type]} userInfo={this.state.user} />
+            <CoinSummary userIn={this.state.user} coinType={type} currRate={this.state.coinCurr[type]} coinResult={this.state.firebaseData[type]} userInfo={this.state.user} />
           </Row>
         )
     });
 
     const userProfile = this.state.user ?
-      <div className='user-profile'>
-        {this.state.user.displayName}
-      </div>
+      <span>
+        <img className="avatar" src={this.state.user.photoURL} /> <div className="headerItem">{this.state.user.displayName}</div>
+      </span>
       :
-      <div></div>;
-    ;
+      null;
 
     return (
       <Grid>
@@ -111,19 +111,28 @@ class App extends React.Component{
             <i className="fas fa-chart-line"></i> CRYPTO TRACKER
           </Col>
         </Row>
+
         <Row>
-          <Col xs={12}>
-            {userProfile}
+
+          <Col sm={6} className="text-left ">
+            <div className="headerItem">
+              Total: <CoinTotal firebaseData={this.state.firebaseData} coinCurr={this.state.coinCurr}/>
+            </div>
           </Col>
-          <div className="wrapper">
-            {this.state.user ?
-              <button onClick={this.logout}>Log Out</button>
-              :
-              <button onClick={this.login}>Log In</button>
-            }
-          </div>
+          <Col sm={6} className="text-right">
+            {userProfile}
+            <div className="logContainer">
+              {this.state.user ?
+                <button className="editBtn" onClick={this.logout}>Log Out</button>
+                :
+                <button className="editBtn" onClick={this.login}>Log In</button>
+              }
+            </div>
+          </Col>
         </Row>
-        {this.state.user ? coinItems : <div>Login First!</div>}
+
+
+        {coinItems}
       </Grid>
     )
   }

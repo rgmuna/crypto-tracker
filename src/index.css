@@ -179,6 +179,29 @@ input:focus{
   outline: none;
 }
 
+
+
+.avatar{
+  height: 32px;
+  border-radius: 30px;
+  float: left;
+  position:relative;
+}
+
+.headerItem{
+  color: white;
+  font-size: 25px;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: #00a3d3;
+  display: inline;
+}
+
+.logContainer{
+  float: right;
+}
+
 @media (max-width: 768px) {
   .noXSPadding{
     padding: 0px;
