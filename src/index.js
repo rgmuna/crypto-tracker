@@ -98,14 +98,26 @@ class App extends React.Component{
     });
 
     const userProfile = this.state.user ?
-      <span>
-        <img className="avatar" src={this.state.user.photoURL} /> <div className="headerItem">{this.state.user.displayName}</div>
-      </span>
+      <div className="displayName">{this.state.user.displayName}</div>
       :
       null;
 
+
+
     return (
       <Grid>
+        <Row>
+          <Col xs={12}>
+            <div className="logContainer" style={{display: 'inline'}}>
+              {userProfile}
+              {this.state.user ?
+                <a className="logBtn" onClick={this.logout}>Log Out</a>
+                :
+                <a className="logBtn" onClick={this.login}>Log In</a>
+              }
+            </div>
+          </Col>
+        </Row>
         <Row className="header">
           <Col xs={12}>
             <i className="fas fa-chart-line"></i> CRYPTO TRACKER
@@ -114,21 +126,12 @@ class App extends React.Component{
 
         <Row>
 
-          <Col sm={6} className="text-left ">
+          <Col xs={12} className="text-center">
             <div className="headerItem">
               Total: <CoinTotal firebaseData={this.state.firebaseData} coinCurr={this.state.coinCurr}/>
             </div>
           </Col>
-          <Col sm={6} className="text-right">
-            {userProfile}
-            <div className="logContainer">
-              {this.state.user ?
-                <button className="editBtn" onClick={this.logout}>Log Out</button>
-                :
-                <button className="editBtn" onClick={this.login}>Log In</button>
-              }
-            </div>
-          </Col>
+
         </Row>
 
 

@@ -21,7 +21,8 @@ body {
   font-size: 40px;
   font-family: 'Monoton';
   text-align: center;
-  margin: 40px auto;
+  margin-bottom: 40px;
+  margin-top: 10px;
   font-style: italic;
   text-shadow: 2px 2px 2px #6cdeff;
   box-shadow: -5px 5px #00778d, -10px 10px #00a3d3, -15px 15px #6cdeff;
@@ -181,16 +182,17 @@ input:focus{
 
 
 
-.avatar{
-  height: 32px;
-  border-radius: 30px;
-  float: left;
-  position:relative;
+.displayName{
+  text-align: right;
+  font-size: 15px;
+  color: #00778d;
+  display: inline;
+  padding: 5px 10px;
 }
 
 .headerItem{
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
@@ -200,10 +202,30 @@ input:focus{
 
 .logContainer{
   float: right;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
+.logBtn{
+  color: #00778d;
+  font-size: 15px;
+  border: 1px solid #00778d;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logBtn:hover{
+  background-color: #00a3d3;
+  text-decoration: none;
+  color: white;
+}
+
+
 
 @media (max-width: 768px) {
   .noXSPadding{
     padding: 0px;
   }
+
 }
