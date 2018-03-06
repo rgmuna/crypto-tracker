@@ -32,10 +32,21 @@ class CoinSummaryTransactions extends React.Component {
   handleChange(e) {
     e.preventDefault();
     const addTransaction = {...this.state.addTransaction}
-    addTransaction[e.target.name] = e.target.value;
-    this.setState({
-      addTransaction
-    });
+    if(e.target.id === 'formDate'){
+      addTransaction[e.target.name] = e.target.value;
+      this.setState({
+        addTransaction
+      });
+    }
+    else if(isNaN(e.target.value)){
+      alert('Numbers only! No symbols or letters.')
+    }
+    else{
+      addTransaction[e.target.name] = e.target.value;
+      this.setState({
+        addTransaction
+      });
+    }
   }
 
   handleSubmit(e) {
@@ -185,7 +196,7 @@ class CoinSummaryTransactions extends React.Component {
                   </Col>
                   <Col xs={4} sm={3} className="noXSPadding">
                     <Col xs={12} className="transDetailContainer">
-                      <input className="coinInput" type="date" name="date" placeholder="ex. mm/dd/yyyy" onChange={this.handleChange} value={this.state.addTransaction.date} />
+                      <input id="formDate" className="coinInput" type="date" name="date" placeholder="ex. mm/dd/yyyy" onChange={this.handleChange} value={this.state.addTransaction.date} />
                     </Col>
                   </Col>
                   <Col xs={12} sm={3} className="noXSPadding text-center">
