@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Modal } from 'react-bootstrap';
 import './index.css';
 import CoinSummary from './components/coin-summary.js';
 import CoinTotal from './components/coin-total.js';
@@ -23,14 +23,15 @@ class App extends React.Component{
         eth: '',
         ltc: ''
       },
-      user: null
+      user: null,
+      show: false
     }
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  handleChange(e) {
-  }
   logout() {
     auth.signOut()
       .then(() => {
@@ -44,11 +45,23 @@ class App extends React.Component{
       .then((result) => {
         const user = result.user;
         this.setState({
-            user
+          user
         });
       });
-    }
+  }
+  handleClose(e){
+    // e.stopPropagation();
+    this.setState(prevState => ({
+       show: false
+    }));
+  }
 
+  handleShow(e){
+    e.stopPropagation();
+    this.setState(prevState => ({
+       show: true
+    }));
+  }
   componentDidMount(){
     fetch('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD')
     .then((result) => {
@@ -63,6 +76,7 @@ class App extends React.Component{
       };
       this.setState({coinCurr: updatedRate});
     })
+
 
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -105,7 +119,7 @@ class App extends React.Component{
 
 
     return (
-      <Grid>
+      <Grid style={{maxWidth: '800px'}}>
         <Row>
           <Col xs={12}>
             <div className="logContainer" style={{display: 'inline'}}>
@@ -125,17 +139,54 @@ class App extends React.Component{
         </Row>
 
         <Row>
-
-          <Col xs={12} className="text-center">
-            <div className="headerItem">
-              Total: <CoinTotal firebaseData={this.state.firebaseData} coinCurr={this.state.coinCurr}/>
-            </div>
+          <Col xs={12} className="text-center" style={{marginBottom: '6px'}}>
+            <a className="instructions" onClick={this.handleShow}>Instructions</a>
           </Col>
-
         </Row>
 
-
+        <Row>
+          <Col xs={12} className="text-center">
+            {this.state.user ?
+              <div className="headerItem">
+                Total: <CoinTotal firebaseData={this.state.firebaseData} coinCurr={this.state.coinCurr}/>
+              </div>
+              :
+              <div> Log in to get started! </div>
+            }
+          </Col>
+        </Row>
         {coinItems}
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+         <Modal.Header closeButton>
+           <Modal.Title>Instructions</Modal.Title>
+         </Modal.Header>
+         <Modal.Body>
+          <ol>
+            <li>
+              Log in using your Gmail account.
+            </li>
+            <li>
+              Your crypto coin worth will be initilized to zero. Click the drop down arrow for each coin to see the transaction section.
+            </li>
+            <li>
+              In the transaction section, add your first transaction for that particular coin by typing in the price you paid, the rate you purchased the coin at and the date you made the puchase.
+            </li>
+            <li>
+              Click "Add" and that transaction will be saved to the database under your user info.
+            </li>
+            <li>
+              As you manually add your transactions, your info will be updated and saved for the next time you login.
+            </li>
+            <li>
+              If you need to edit an entry, click the "Edit" button which will allow you to remove the entry. Then you can simply re-add it with the correct values.
+            </li>
+          </ol>
+         </Modal.Body>
+         <Modal.Footer>
+           <button onClick={this.handleClose}>Close</button>
+         </Modal.Footer>
+       </Modal>
       </Grid>
     )
   }

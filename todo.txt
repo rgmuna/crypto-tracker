@@ -1,7 +1,2 @@
 - add feature where you can add/show whatever coin you want
-- add sort to transactions
-- change date format
-
-- add total summary of everything
-- add instructions
-- format login
+- add checks on added data

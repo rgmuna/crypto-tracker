@@ -160,8 +160,6 @@ class CoinSummaryTransactions extends React.Component {
               </Col>
               {transactionArray}
 
-
-
               <Col xs={12} className="submitContainer">
                 <Col xs={12} className="subtitleContainer">
                   <Col xs={4} sm={3} className="transSubHeader">
